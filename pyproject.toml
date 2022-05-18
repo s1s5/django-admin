@@ -1,0 +1,82 @@
+[tool.poetry]
+name = "comimi-admin"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "^4.0.2"
+django-environ = "^0.8.1"
+psycopg2-binary = "^2.9.3"
+Pillow = "^9.0.1"
+django-multiselectfield = "^0.1.12"
+PyYAML = "^6.0"
+
+[tool.poetry.dev-dependencies]
+django-stubs = "^1.9.0"
+django-stubs-ext = "^0.3.1"
+black = "^22.1.0"
+flake8 = "^4.0.1"
+mypy = "^0.931"
+isort = "^5.10.1"
+pre-commit = "^2.17.0"
+pyproject-flake8 = "^0.0.1-alpha.2"
+pylint = "^2.12.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 110
+exclude = """
+/(\\.git/
+  |\\.eggs
+  |\\.hg
+  |__pycache__
+  |\\.cache
+  |\\.ipynb_checkpoints
+  |\\.mypy_cache
+  |\\.pytest_cache
+  |\\.tox
+  |\\.venv
+  |migrations
+)/
+"""
+
+[tool.mypy]
+plugins = ["mypy_django_plugin.main"]
+namespace_packages = true
+ignore_missing_imports = true  # スタブがないライブラリを無視する
+exclude = [
+    "^core/.*",
+    "^account/.*",
+    "^store/.*",
+    "^checkout/.*",
+    "^.*/core/.*",
+    "^.*settings\\.py$",
+    "^.*/migrations/.*\\.py$",
+]
+
+[tool.django-stubs]
+django_settings_module = "admin.settings"
+
+[tool.isort]
+line_length = 110
+multi_line_output = 3
+include_trailing_comma = true
+profile = "black"
+extend_skip_glob = ["**/migrations/*.py"]
+
+[tool.flake8]
+max-line-length = 110
+max-complexity = 18
+extend-ignore = "E203,"  # blackと競合してる
+exclude = [
+"**/migrations/*.py",
+"account/**",
+"store/**",
+"checkout/**",
+]
+radon-max-cc = 10
