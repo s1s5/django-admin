@@ -20,6 +20,13 @@ env = environ.Env(
     TIME_ZONE=(str, "Asia/Tokyo"),
     DATABASE_URL=(str, "sqlite://:memory:"),
     APPS=(str, ""),
+    PRIMARY_COLOR=(str, "#79aec8"),
+    SECONDARY_COLOR=(str, "#417690"),
+    FAVICON_URL=(str, ""),
+    ADMIN_INDEX_TITLE=(str, ""),
+    ADMIN_SITE_TITLE=(str, ""),
+    ADMIN_SITE_HEADER=(str, ""),
+    ADMIN_TITLE_PREFIX=(str, ""),
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -64,7 +71,9 @@ ROOT_URLCONF = "admin.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [
+            "admin/templates",
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -72,6 +81,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "admin.context_processors.export_settings",
             ],
         },
     },
@@ -142,3 +152,12 @@ for app_dict in yaml.safe_load(env("APPS")) or []:
 
 for db_name in db_set:
     DATABASES[db_name] = env.db_url(f"{db_name.upper()}_DATABASE_URL", default="sqlite://:memory:")
+
+PRIMARY_COLOR = env("PRIMARY_COLOR")
+SECONDARY_COLOR = env("SECONDARY_COLOR")
+FAVICON_URL = env("FAVICON_URL")
+
+ADMIN_INDEX_TITLE = env("ADMIN_INDEX_TITLE")
+ADMIN_SITE_TITLE = env("ADMIN_SITE_TITLE")
+ADMIN_SITE_HEADER = env("ADMIN_SITE_HEADER")
+ADMIN_TITLE_PREFIX = env("ADMIN_TITLE_PREFIX")

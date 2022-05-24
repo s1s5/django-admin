@@ -1,0 +1,16 @@
+{% extends 'admin/base.html' %}
+
+{% block extrahead %}
+  {% if FAVICON_URL %}
+    <link rel="icon" href="{{ FAVICON_URL }}" sizes="48x48" />
+  {% endif %}
+{% endblock %}
+
+{% block extrastyle %}{{ block.super }}
+  <style>
+    :root {
+        --primary: {{ PRIMARY_COLOR }};
+        --secondary: {{ SECONDARY_COLOR }};
+    }
+  </style>
+{% endblock %}
