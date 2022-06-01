@@ -27,6 +27,8 @@ env = environ.Env(
     ADMIN_SITE_TITLE=(str, ""),
     ADMIN_SITE_HEADER=(str, ""),
     ADMIN_TITLE_PREFIX=(str, ""),
+    SECRET_KEY=(str, "django-insecure-xf+7^7slw%(*n@)-9=gx8rjhi50=brt00b9l4%s!k=100c3)rp"),
+    SESSION_COOKIE_NAME=(str, "django-admin-sessionid"),
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,7 +39,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-xf+7^7slw%(*n@)-9=gx8rjhi50=brt00b9l4%s!k=100c3)rp"
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -161,3 +163,6 @@ ADMIN_INDEX_TITLE = env("ADMIN_INDEX_TITLE")
 ADMIN_SITE_TITLE = env("ADMIN_SITE_TITLE")
 ADMIN_SITE_HEADER = env("ADMIN_SITE_HEADER")
 ADMIN_TITLE_PREFIX = env("ADMIN_TITLE_PREFIX")
+
+SESSION_COOKIE_NAME = env("SESSION_COOKIE_NAME")
+CSRF_COOKIE_NAME = env("SESSION_COOKIE_NAME") + "-csrftoken"
