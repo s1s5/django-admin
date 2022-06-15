@@ -29,6 +29,7 @@ env = environ.Env(
     ADMIN_TITLE_PREFIX=(str, ""),
     SECRET_KEY=(str, "django-insecure-xf+7^7slw%(*n@)-9=gx8rjhi50=brt00b9l4%s!k=100c3)rp"),
     SESSION_COOKIE_NAME=(str, "django-admin-sessionid"),
+    ADMIN_URL_PREFIX=(str, ""),
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -135,7 +136,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = "static/"
+# STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -166,3 +167,5 @@ ADMIN_TITLE_PREFIX = env("ADMIN_TITLE_PREFIX")
 
 SESSION_COOKIE_NAME = env("SESSION_COOKIE_NAME")
 CSRF_COOKIE_NAME = env("SESSION_COOKIE_NAME") + "-csrftoken"
+ADMIN_URL_PREFIX = env("ADMIN_URL_PREFIX")
+STATIC_URL = ADMIN_URL_PREFIX + "static/"

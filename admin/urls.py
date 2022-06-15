@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
-    path("", admin.site.urls),
+    path(settings.ADMIN_URL_PREFIX, admin.site.urls),
 ]
 
 if settings.ADMIN_INDEX_TITLE:
