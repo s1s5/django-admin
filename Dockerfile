@@ -24,4 +24,4 @@ copy admin ./admin
 
 USER app
 
-ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD gunicorn admin.wsgi:application -w 1 --bind 0.0.0.0:8000

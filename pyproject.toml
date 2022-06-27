@@ -13,6 +13,7 @@ Pillow = "^9.0.1"
 django-multiselectfield = "^0.1.12"
 PyYAML = "^6.0"
 ulid-py = "^1.1.0"
+gunicorn = "^20.1.0"
 
 [tool.poetry.dev-dependencies]
 django-stubs = "^1.9.0"

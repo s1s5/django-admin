@@ -16,6 +16,8 @@ import environ
 import yaml
 
 env = environ.Env(
+    DEBUG=(bool, True),
+    ALLOWED_HOSTS=(list, ["*"]),
     LANGUAGE_CODE=(str, "ja"),
     TIME_ZONE=(str, "Asia/Tokyo"),
     DATABASE_URL=(str, "sqlite://:memory:"),
@@ -30,6 +32,7 @@ env = environ.Env(
     SECRET_KEY=(str, "django-insecure-xf+7^7slw%(*n@)-9=gx8rjhi50=brt00b9l4%s!k=100c3)rp"),
     SESSION_COOKIE_NAME=(str, "django-admin-sessionid"),
     ADMIN_URL_PREFIX=(str, ""),
+    CSRF_TRUSTED_ORIGINS=(list, ["http://localhost"]),
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -43,9 +46,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG")
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 
 # Application definition
@@ -167,5 +170,6 @@ ADMIN_TITLE_PREFIX = env("ADMIN_TITLE_PREFIX")
 
 SESSION_COOKIE_NAME = env("SESSION_COOKIE_NAME")
 CSRF_COOKIE_NAME = env("SESSION_COOKIE_NAME") + "-csrftoken"
+CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS")
 ADMIN_URL_PREFIX = env("ADMIN_URL_PREFIX")
 STATIC_URL = ADMIN_URL_PREFIX + "static/"

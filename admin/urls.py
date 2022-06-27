@@ -13,11 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import re
+from typing import List, Union
+from urllib.parse import urlparse
+
 from django.conf import settings
 from django.contrib import admin
-from django.urls import path
+from django.urls import URLPattern, URLResolver, path, re_path
 
-urlpatterns = [
+from . import views
+
+urlpatterns: List[Union[URLResolver, URLPattern]] = [
     path(settings.ADMIN_URL_PREFIX, admin.site.urls),
 ]
 
@@ -29,3 +35,12 @@ if settings.ADMIN_SITE_TITLE:
 
 if settings.ADMIN_SITE_HEADER:
     admin.site.site_header = settings.ADMIN_SITE_HEADER
+
+if not settings.DEBUG:
+    urlpatterns.insert(
+        0,
+        re_path(
+            r"^%s(?P<path>.*)$" % re.escape(urlparse(settings.STATIC_URL).path.lstrip("/")),
+            views.serve_static_files,
+        ),
+    )
