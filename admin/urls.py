@@ -36,11 +36,10 @@ if settings.ADMIN_SITE_TITLE:
 if settings.ADMIN_SITE_HEADER:
     admin.site.site_header = settings.ADMIN_SITE_HEADER
 
-if not settings.DEBUG:
-    urlpatterns.insert(
-        0,
-        re_path(
-            r"^%s(?P<path>.*)$" % re.escape(urlparse(settings.STATIC_URL).path.lstrip("/")),
-            views.serve_static_files,
-        ),
-    )
+urlpatterns.insert(
+    0,
+    re_path(
+        r"^%s(?P<path>.*)$" % re.escape(urlparse(settings.STATIC_URL).path.lstrip("/")),
+        views.serve_static_files,
+    ),
+)
