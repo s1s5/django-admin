@@ -19,11 +19,24 @@ from urllib.parse import urlparse
 
 from django.conf import settings
 from django.contrib import admin
+from django.db import connection
+from django.http import HttpResponse
 from django.urls import URLPattern, URLResolver, path, re_path
 
 from . import views
 
+
+def healthcheck(request):
+    with connection.cursor() as cursor:
+        cursor.execute("select 1")
+        one = cursor.fetchone()[0]
+        if one != 1:
+            return HttpResponse(status=500)
+    return HttpResponse(status=200)
+
+
 urlpatterns: List[Union[URLResolver, URLPattern]] = [
+    path(f"{settings.ADMIN_URL_PREFIX}-/healthcheck/", healthcheck),
     path(settings.ADMIN_URL_PREFIX, admin.site.urls),
 ]
 
