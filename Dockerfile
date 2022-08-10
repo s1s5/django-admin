@@ -39,4 +39,4 @@ copy admin ./admin
 
 USER app
 
-CMD gunicorn admin.wsgi:application -w 1 --bind 0.0.0.0:8000
+CMD gunicorn admin.wsgi:application -w 1 --threads 8 --bind 0.0.0.0:8000 --max-requests 10000 --graceful-timeout 300
