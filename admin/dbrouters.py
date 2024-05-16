@@ -9,7 +9,7 @@ class AutoRouter:
     def get_db(self, model: models.Model) -> str:
         if model._meta.app_label in self.admin_labels:
             return "default"
-        return getattr(model._meta.app_config, "db")
+        return getattr(model._meta.app_config, "db", None)
 
     def db_for_read(self, model: models.Model, **hints: Any) -> str:
         return self.get_db(model)
